@@ -15,16 +15,15 @@ class Quiz:
     # Note: calling a attribute within class requires self.attribute
     def __init__(self):
         """Generate 10 random questions with numbers from 1 to 10."""
+        question_type = (Add, Multiply)
         for _ in range(0, 10):  # generate 10 random questions
             num1 = random.randint(1, 10)
             num2 = random.randint(1, 10)
             
-            # decides to generate add or multiply
-            add_or_multiply = random.randint(0,1) 
-            if add_or_multiply:
-                self.questions.append(Add(num1, num2))
-            else:
-                self.questions.append(Multiply(num1, num2))
+            # we get random number from question_type tuple
+            rand_question = random.randint(0, len(question_type)-1) 
+            # append random type of question
+            self.questions.append(question_type[rand_question](num1, num2))
     
     @staticmethod    
     def _time_passed(start, end):
@@ -73,7 +72,7 @@ class Quiz:
             end_time = datetime.datetime.now()
             answer_time = self._time_passed(start_time, end_time)
             # if answer is wrong, return False and elapsed time.
-            return False, answer_time
+            return False, answer_time 
 
     def _summary(self, total_time):
         """Prints how many you got right and total # of questions,
@@ -91,7 +90,7 @@ class Quiz:
         print('Score: {0}/{1}'.format(score_counter, num_of_questions))
         
         # log if perfect score
-        if score_counter == num_of_questions:  
+        if score_counter == num_of_questions and num_of_questions != 0:  
             print('Perfect score!')
         
         # format and print the total time for quiz.
@@ -115,9 +114,9 @@ class Quiz:
             
             # feedback: correct or not
             if is_correct:   
-                print('Correct', time_to_answer, '\n')
+                print('Correct. \nTime: {0}\n'.format(time_to_answer))
             else: 
-                print('Nope', time_to_answer, '\n')
+                print('Nope. \nTime: {0}\n'.format(time_to_answer))
                 
             self.answers.append(answer)  # add to self.answers list
         
@@ -133,5 +132,3 @@ class Quiz:
         self._summary(total_quiz_time)
         return '\nThanks for playing'
         
-    
-    
