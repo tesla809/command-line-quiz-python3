@@ -13,10 +13,13 @@ class Quiz:
     answers = []   # holds if they got questions right or wrong
     
     # Note: calling a attribute within class requires self.attribute
-    def __init__(self):
-        """Generate 10 random questions with numbers from 1 to 10."""
+    def __init__(self, num_of_questions=10):
+        """Generate 10 random questions with numbers from 1 to 10.
+        Takes in type int for number questions.
+        Default of num_of_questions is 10.
+        """
         question_type = (Add, Multiply)
-        for _ in range(10):  # generate 10 random questions
+        for _ in range(num_of_questions):  # generate 10 random questions
             num1 = random.randint(1, 10)
             num2 = random.randint(1, 10)
             
