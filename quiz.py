@@ -16,7 +16,7 @@ class Quiz:
     def __init__(self):
         """Generate 10 random questions with numbers from 1 to 10."""
         question_type = (Add, Multiply)
-        for _ in range(0, 10):  # generate 10 random questions
+        for _ in range(10):  # generate 10 random questions
             num1 = random.randint(1, 10)
             num2 = random.randint(1, 10)
             
