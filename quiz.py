@@ -24,10 +24,10 @@ class Quiz:
             num2 = random.randint(1, 10)
             # we get random number from question_type tuple
             # random.choice picks random element from population
-            question = random.choice(question_type)
+            question = random.choice(question_type)(num1, num2)
             
             # append random type of question
-            self.questions.append(question(num1, num2))
+            self.questions.append(question)
     
     @staticmethod    
     def _time_passed(start, end):
