@@ -23,8 +23,8 @@ class Quiz:
             num1 = random.randint(1, 10)
             num2 = random.randint(1, 10)
             # we get random number from question_type tuple
-            rand_question = random.choice(question_type)
-            question = question_type[rand_question]
+            # random.choice picks random element from population
+            question = random.choice(question_type)
             
             # append random type of question
             self.questions.append(question(num1, num2))
