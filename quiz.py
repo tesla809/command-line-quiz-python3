@@ -164,4 +164,3 @@ class Quiz:
         # show a summary- call summary here
         self.summary(total_quiz_time)
         return '\nThanks for playing'
-    
