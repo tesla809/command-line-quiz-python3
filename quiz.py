@@ -8,7 +8,7 @@ from questions import Add, Multiply
 
 
 class Quiz:
-    """Creates and runs quiz with 10 questions"""
+    """Creates and runs quiz with 10 questions. Run .take_quiz() to start after init"""
     questions = []  # Store and hold on to all the questions
     answers = []   # holds if they got questions right or wrong
     
@@ -18,7 +18,15 @@ class Quiz:
         Takes in type int for number questions.
         Default of num_of_questions is 10.
         """
+        # This is a common pattern in Python.
         question_types = (Add, Multiply)
+        num_of_questions = self.ask_number_of_questions()
+        
+        # for stats of different quizzes later
+        self.final_total_time = None
+        self.final_total_correct = None
+        self.final_num_of_questions = None
+        
         for _ in range(num_of_questions):  # generate 10 random questions
             num1 = random.randint(1, 10)
             num2 = random.randint(1, 10)
@@ -27,6 +35,17 @@ class Quiz:
             question = random.choice(question_types)(num1, num2)
             # append random type of question
             self.questions.append(question)
+    
+    def ask_number_of_questions(self):
+        # check if number
+        while True:
+            try:
+                self.num_of_questions = int(input('How many questions do you want?'))
+            except ValueError:
+                print('Enter a valid whole number')
+                continue
+            break  # breaks if valid number is given.
+        return self.num_of_questions
     
     @staticmethod    
     def _time_passed(start, end):
@@ -105,6 +124,11 @@ class Quiz:
         # format and print the total time for quiz.
         total_time = self._format_time_elapsed(total_time)
         print('Total Quiz Time: {0}'.format(total_time))
+        
+        # sets stats for quiz later
+        self.final_total_time = total_time
+        self.final_total_correct = total_right
+        self.final_num_of_questions = num_of_questions
     
     def take_quiz(self):
         """Method that asks the quiz questions"""
@@ -140,3 +164,4 @@ class Quiz:
         # show a summary- call summary here
         self.summary(total_quiz_time)
         return '\nThanks for playing'
+    
