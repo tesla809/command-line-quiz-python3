@@ -25,7 +25,6 @@ class Quiz:
             # we get random number from question_type tuple
             # random.choice picks random element from population
             question = random.choice(question_type)(num1, num2)
-            
             # append random type of question
             self.questions.append(question)
     
@@ -38,8 +37,7 @@ class Quiz:
     def _format_time(datetime_obj):
         """Formats and returns times as strings"""
         time = datetime_obj.strftime('%I:%M:%S %p')
-        time_rounded = time
-        return time_rounded
+        return time
     
     @staticmethod
     def _format_time_elapsed(time_delta):
@@ -77,24 +75,31 @@ class Quiz:
             answer_time = self._time_passed(start_time, end_time)
             # if answer is wrong, return False and elapsed time.
             return False, answer_time 
-
-    def _summary(self, total_time):
-        """Prints how many you got right and total # of questions,
-        as well as the total time for quiz.
+        
+    def total_correct(self):
+        """Tallies number of correct questions. Returns number of correct questions
+        and total number of question asked.
         """
-        # prints how many you got right and total # of questions: 5/10
         score_counter = 0
         num_of_questions = len(self.questions)
         
-        # tallies score
         for el in self.answers:
             result = el[0]
-            if result == True:
+            if result:
                 score_counter += 1
-        print('Score: {0}/{1}'.format(score_counter, num_of_questions))
+        
+        return score_counter, num_of_questions
+        
+    def summary(self, total_time):
+        """Prints how many you got right and total # of questions,
+        as well as the total time for quiz.
+        """
+        # gets and prints how many you got right and total # of questions: 5/10
+        total_right, num_of_questions = self.total_correct()
+        print('Score: {0}/{1}'.format(total_right, num_of_questions))
         
         # log if perfect score
-        if score_counter == num_of_questions and num_of_questions != 0:  
+        if total_right == num_of_questions and num_of_questions != 0:  
             print('Perfect score!')
         
         # format and print the total time for quiz.
@@ -133,5 +138,5 @@ class Quiz:
         total_quiz_time = self._time_passed(quiz_start, quiz_end)
         
         # show a summary- call summary here
-        self._summary(total_quiz_time)
+        self.summary(total_quiz_time)
         return '\nThanks for playing'
