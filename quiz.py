@@ -18,13 +18,13 @@ class Quiz:
         Takes in type int for number questions.
         Default of num_of_questions is 10.
         """
-        question_type = (Add, Multiply)
+        question_types = (Add, Multiply)
         for _ in range(num_of_questions):  # generate 10 random questions
             num1 = random.randint(1, 10)
             num2 = random.randint(1, 10)
             # we get random number from question_type tuple
             # random.choice picks random element from population
-            question = random.choice(question_type)(num1, num2)
+            question = random.choice(question_types)(num1, num2)
             # append random type of question
             self.questions.append(question)
     
